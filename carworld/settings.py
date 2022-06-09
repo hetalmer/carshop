@@ -78,8 +78,11 @@ WSGI_APPLICATION = 'carworld.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'cartred_db',
+        'USER': 'postgres',
+        'PASSWORD': 'Mer1738@',
+        'HOST':'localhost',
     }
 }
 
@@ -124,6 +127,10 @@ STATICFILES_DIRS = [
     BASE_DIR / 'carworld/static',
 ]
 
+
+#Media Settings
+MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = '/media/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
