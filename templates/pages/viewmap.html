@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="sub-banner overview-bgi">
+    <div class="container breadcrumb-area">
+        <div class="breadcrumb-areas">
+            <h1>Map View</h1>
+            <ul class="breadcrumbs">
+                <li><a {% url 'home-page' %}>Home</a></li>
+                <li class="active">Map View</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="map-style">
+    <center>
+      <h1>  {{m|safe}} </h1>
+    </center>
+</div>
+{% endblock content %}

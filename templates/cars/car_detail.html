@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+
+{% load static %}
 {% block content %}
 {% load humanize %}
 <!-- Car details page start -->
@@ -129,8 +131,11 @@
                 <div class="sidebar-right">
                     <!-- Advanced search start -->
                     <div class="widget advanced-search d-none-992">
-                        <button class="btn btn-outline-danger bomd btn-block btn-lg" data-toggle="modal" data-target="#inquiryModal">Send message</button>
-
+                        {% if user.is_authenticated %}
+                            <button class="btn btn-outline-danger bomd btn-block btn-lg" data-toggle="modal" data-target="#inquiryModal">Send message</button>
+                        {% else %}
+                            <a href={% url 'login-page' %}><button class="btn btn-outline-danger bomd btn-block btn-lg" >Send message</button></a>
+                        {% endif %}
 
                         <br>
                         <h3 class="sidebar-title">Refine Your Search</h3>
@@ -181,35 +186,28 @@
                         <div class="modal-content">
                           <div class="contact-dealer modal-header">
                             <!-- <h5 class="modal-title" id="inquiryModalLabel">Contact Dealer</h5> -->
-                            <img src="img/logos/logo-black-white.png">
+                            <img src="{% static 'img/logos/logo-black-white.png' %} ">
                             <button type="button" class="close" data-dismiss="modal">
                               <span>&times;</span>
                             </button>
                           </div>
                           <div class="modal-body">
-                            <form action="#">
+                            <form action="{% url 'inquiry-page' %}" method="POST">
+                                {% csrf_token %}
                                 <div class="form-group">
                                   <label for="name" class="col-form-label">Hello, My Name is</label>
                                   <div class="row">
                                     <div class="col">
-                                      <input type="text" name="first_name" class="form-control" placeholder="First Name" required>
+                                      <input type="text" name="first_name" value="{{ userr.username }}" class="form-control" placeholder="First Name" required>
                                     </div>
                                     <div class="col">
                                       <input type="text" name="last_name" class="form-control" placeholder="Last Name" required>
                                     </div>
                                   </div>
                                 </div>
-                                  <div class="form-group">
-                                      <select class="form-control" id="sel1" name="customer_need">
-                                        <option value="I'm interested in this">I'm interested in this</option>
-                                        <option value="I'd like to know your best price for this">I'd like to know your best price for this</option>
-                                        <option value="I'd like to test drive this">I'd like to test drive this</option>
-                                        <option value="I'd like a history report for this">I'd like a history report for this</option>
-                                      </select>
-                                    </div>
-                                
                                 <div class="form-group">
-                                  <input type="text" name="car_title" class="form-control" value="LAMBORGHINI HURACÁN." readonly>
+                                  <input type="text" name="car_title" class="form-control" value="{{data.car_title}}" readonly>
+                                  <input type="hidden" name="car" value="{{ data.id }}">
                                 </div>
                                
                                 <div class="form-group">
@@ -228,7 +226,7 @@
                                   <div class="row">
                                     <div class="col">
                                         <label for="name" class="col-form-label">You can reach me by email at</label>
-                                      <input type="email" name="email" class="form-control" placeholder="Email Address" required>
+                                      <input type="email" name="email" value="{{ userr.email }}" class="form-control" placeholder="Email Address" required>
                                     </div>
                                     <div class="col">
                                         <label for="phone" class="col-form-label">or by phone at</label>

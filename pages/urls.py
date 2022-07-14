@@ -4,5 +4,6 @@ urlpatterns = [
     path('',views.home,name='home-page'),
     path('contact',views.contact,name='contact-page'),
     path('about',views.about,name='about-page'),
-    path('services',views.services,name='services-page')
+    path('services',views.services,name='services-page'),
+    path('viewmap/<str:city>',views.mapview,name='map-page'),
 ]

@@ -6,7 +6,7 @@
             <h1>Contact Us</h1>
             <ul class="breadcrumbs">
                 <li><a href="index.html">Home</a></li>
-                <li class="active">Contact Us</li>
+                <li class="active">Search Result</li>
             </ul>
         </div>
     </div>
@@ -22,42 +22,39 @@
                         <div class="col-lg-3 col-md-6 col-sm-6 col-6">
                             <div class="form-group">
                                 <select class="selectpicker search-fields" name="select-brand">
-                                    <option disabled="disabled" selected="selected">Select Brand</option>
-                                    <option>Audi</option>
-                                    <option>BMW</option>
-                                    <option>Honda</option>
-                                    <option>Nissan</option>
-                                </select>
+                                    <option selected="true" disabled="disabled">Model</option>
+                                    {% for sdata in sdata.model  %}
+                                        <option value={{ sdata }}>{{ sdata }}</option>
+                                    {% endfor %}                                </select>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6 col-6">
                             <div class="form-group">
                                 <select class="selectpicker search-fields" name="select-make">
-                                    <option disabled="disabled" selected="selected">Select Make</option>
-                                    <option>BMW</option>
-                                    <option>Honda</option>
-                                    <option>Lamborghini Huracán</option>
-                                    <option>Sports Car</option>
+                                    <option selected="true" disabled="disabled">Year</option>
+                                    {% for sdata in sdata.year  %}
+                                        <option value={{ sdata }}>{{ sdata }}</option>
+                                    {% endfor %}
                                 </select>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6 col-6">
                             <div class="form-group">
                                 <select class="selectpicker search-fields" name="select-location">
-                                    <option disabled="disabled" selected="selected">Select Location</option>
-                                    <option>United States</option>
-                                    <option>United Kingdom</option>
+                                    <option selected="true" disabled="disabled">Color</option>
+                                    {% for sdata in sdata.color  %}
+                                        <option value={{ sdata }}>{{ sdata }}</option>
+                                    {% endfor %}
                                 </select>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6 col-6">
                             <div class="form-group">
                                 <select class="selectpicker search-fields" name="select-year">
-                                    <option disabled="disabled" selected="selected">Select Year</option>
-                                    <option>2016</option>
-                                    <option>2017</option>
-                                    <option>2018</option>
-                                    <option>2019</option>
+                                    <option disabled="disabled" selected="selected">City</option>
+                                    {% for sdata in sdata.city  %}
+                                        <option value={{ sdata }}>{{ sdata }}</option>
+                                    {% endfor %}
                                 </select>
                             </div>
                         </div>
@@ -66,25 +63,27 @@
                         <div class="col-lg-3 col-md-6 col-sm-6 col-6">
                             <div class="form-group">
                                 <select class="selectpicker search-fields" name="select-type">
-                                    <option disabled="disabled" selected="selected">Select Type Of Car</option>
-                                    <option>New Car</option>
-                                    <option>Used Car</option>
+                                    <option disabled="disabled" selected="selected">Body Style</option>
+                                    {% for sdata in sdata.body_style  %}
+                                        <option value={{ sdata }}>{{ sdata }}</option>
+                                    {% endfor %}
                                 </select>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6 col-6">
                             <div class="form-group">
                                 <select class="selectpicker search-fields" name="transmission">
-                                    <option disabled="disabled" selected="selected">Transmission</option>
-                                    <option>Automatic</option>
-                                    <option>Manual</option>
+                                    <option disabled="disabled" selected="selected">Doors</option>
+                                    {% for sdata in sdata.doors  %}
+                                        <option value={{ sdata }}>{{ sdata }}</option>
+                                    {% endfor %}
                                 </select>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6 col-6">
                             <div class="form-group">
                                 <div class="range-slider">
-                                    <div data-min="0" data-max="150000" data-unit="USD" data-min-name="min_price" data-max-name="max_price" class="range-slider-ui ui-slider" aria-disabled="false"></div>
+                                    <div data-min="0" data-max="{{maxval.price__max}}" data-unit="USD" data-min-name="min_price" data-max-name="max_price" class="range-slider-ui ui-slider" aria-disabled="false"></div>
                                     <div class="clearfix"></div>
                                 </div>
                             </div>
@@ -118,7 +117,7 @@
                     <div class="car-thumbnail">
                         <a href="{% url 'car-detail-page' allcar.id %}" class="car-img">
                             <div class="tag">For Sale</div>
-                            <img class="d-block w-100" src='{{allcar.car_photo.url}}' alt="car">
+                            <img class="d-block w-100" src='{{allcar.car_photo.url}}' style="min-height:262px;max-height:262px;" alt="car">
                             <div class="facilities-list clearfix">
                                 <ul>
                                     <li>

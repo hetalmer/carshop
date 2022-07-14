@@ -1,8 +1,10 @@
+from pyexpat import model
 from random import choices
 from django.db import models
 from datetime import datetime
 from ckeditor.fields import RichTextField
 from multiselectfield import MultiSelectField
+from django.contrib.auth.models import User
 # Create your models here.
 class Car(models.Model):
     state_choice = (
@@ -62,3 +64,19 @@ class Car(models.Model):
 
     def __str__(self):
         return f"{self.car_title}({self.year})"
+
+
+class Inquiry(models.Model):
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    car = models.ForeignKey(Car,on_delete=models.CASCADE)
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    city = models.CharField(max_length=80)
+    state = models.CharField(max_length=100)
+    email = models.EmailField()
+    phone = models.CharField(max_length=15)
+    comments = RichTextField()
+    created_date = models.DateTimeField(default=datetime.now,blank=True)
+
+    def __str__(self):
+        return f"{self.first_name}({self.city})"

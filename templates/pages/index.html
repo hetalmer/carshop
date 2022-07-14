@@ -6,27 +6,27 @@
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner banner-slider-inner text-center">
             <div class="carousel-item banner-max-height active item-bg">
-                <img class="d-block w-100 h-100" src="img/car-1.jpg" alt="banner">
+                <img class="d-block w-100 h-100" src="{% static 'img/car-1.jpg' %} " alt="banner">
                 <div class="carousel-content container banner-info-2 bi-2 text-left">
                     <h3>Wow Factor Standard</h3>
                     <h5>Allow us to guide you through the innovative stress<br> free approach in finding your dream car.</h5>
-                    <a href="services.html" class="btn btn-lg btn-theme">Read more</a>
+                    <a href="{% url 'services-page' %}" class="btn btn-lg btn-theme">Read more</a>
                 </div>
             </div>
             <div class="carousel-item banner-max-height item-bg">
-                <img class="d-block w-100 h-100" src="img/car-2.jpg" alt="banner">
+                <img class="d-block w-100 h-100" src="{% static 'img/car-2.jpg' %} " alt="banner">
                 <div class="carousel-content container banner-info-2 bi-2 text-left">
                     <h3>Explore Your Dream Car</h3>
                     <h5>Allow us to guide you through the innovative stress<br> free approach in finding your dream car.</h5>
-                    <a href="#" class="btn btn-lg btn-theme">Read more</a>
+                    <a href="{% url 'services-page' %}" class="btn btn-lg btn-theme">Read more</a>
                 </div>
             </div>
             <div class="carousel-item banner-max-height item-bg">
-                <img class="d-block w-100 h-100" src="img/car-3.jpg" alt="banner">
+                <img class="d-block w-100 h-100" src="{% static 'img/car-3.jpg' %} " alt="banner">
                 <div class="carousel-content container banner-info-2 bi-2 text-left">
                     <h3>We Are Wheel</h3>
                     <h5>Allow us to guide you through the innovative stress<br> free approach in finding your dream car.</h5>
-                    <a href="#" class="btn btn-lg btn-theme">Read more</a>
+                    <a href="{% url 'services-page' %}" class="btn btn-lg btn-theme">Read more</a>
                 </div>
             </div>
         </div>
@@ -73,14 +73,10 @@
                 </div>
                 <div class="range-slider clearfix">
                     <label>Price</label>
-                    <div data-min="{{ min.price__min }}" data-max="{{ max.price__max }}" data-min-name="min_price" data-max-name="max_price" data-unit="USD" class="range-slider-ui ui-slider" aria-disabled="false"></div>
+                    <div data-min="0" data-max="{{max.price__max}}" data-min-name="min_price" data-max-name="max_price" data-unit="USD" class="range-slider-ui ui-slider" aria-disabled="false"></div>
                     <div class="clearfix"></div>
                 </div>
-                <div class="range-slider clearfix">
-                    <label>Price</label>
-                    <div data-min="0" data-max="150000" data-min-name="min_price" data-max-name="max_price" data-unit="USD" class="range-slider-ui ui-slider" aria-disabled="false"></div>
-                    <div class="clearfix"></div>
-                </div>
+                
                 
                 <div class="form-group">
                     <button class="btn btn-block button-theme btn-md">
@@ -107,7 +103,6 @@
         <!-- Main title -->
         <div class="main-title">
             <h1>Featured <span>Cars</span></h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
         </div>
         <!-- Slick slider area start -->
         <div class="slick-slider-area clearfix">
@@ -123,7 +118,7 @@
                                     <br>
                                     <span>{{car.price | intcomma}}</span>
                                 </div>
-                                <img class="d-block w-100" src='{{car.car_photo.url}}' style="height:240;width:240;" alt="car">
+                                <img class="d-block w-100" src='{{car.car_photo.url}}' style="min-height:262px;max-height:262px;" alt="car">
                             </a>
                             <div class="carbox-overlap-wrapper">
                                 <div class="overlap-box">
@@ -132,6 +127,10 @@
                                             <a href='{{car.car_photo1.url}}' class="overlap-btn">
                                                 <i class="fa fa-expand"></i>
                                                 <img class="hidden" src='{{car.car_photo1.url}}'>
+                                            </a>
+
+                                            <a href='{{car.car_photo1.url}}' class="hidden">
+                                                <img class="hidden" src='{{car.car_photo2.url}}'>
                                             </a>
                                             <a href='{{car.car_photo2.url}}' class="hidden">
                                                 <img class="hidden" src='{{car.car_photo2.url}}'>
@@ -153,8 +152,8 @@
                                 <a href="{% url 'car-detail-page' car.id %}">{{car.car_title}}</a>
                             </h1>
                             <div class="location">
-                                <a href="{% url 'car-detail-page' car.id %}">
-                                    <i class="flaticon-pin"></i>{{car.city}},{{car.state}}
+                                <a href="{% url 'car-detail-page' car.id %}"></a>
+                                <a href="{% url 'map-page' car.city %}"    <i class="flaticon-pin"></i>{{car.city}},{{car.state}}
                                 </a>
                             </div>
                             <ul class="facilities-list clearfix">
@@ -190,7 +189,6 @@
         <!-- Main title -->
         <div class="main-title">
             <h1>Latest <span>Cars</span></h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
         </div>
         <div class="row">
             {% for allcar in car %}
@@ -199,7 +197,7 @@
                     <div class="car-thumbnail">
                         <a href="{% url 'car-detail-page' allcar.id %}" class="car-img">
                             <div class="tag">For Sale</div>
-                            <img class="d-block w-100" src='{{allcar.car_photo.url}}' alt="car">
+                            <img class="d-block w-100" src='{{allcar.car_photo.url}}' style="min-height:262px;max-height:262px;" alt="car">
                             <div class="facilities-list clearfix">
                                 <ul>
                                     <li>
@@ -279,14 +277,8 @@
                 <div class="slick-slide-item">
                     <div class="team-1">
                         <div class="photo">
-                            <a href="#">
                                 <img src="{{team.photo.url}}" alt="team-1" class="img-fluid">
-                            </a>
-                            <div class="social-list clearfix">
-                                <a href="{{team.facebook_link}}" target="_blank" class="facebook-bg"><i class="fa fa-facebook"></i></a>
-                                <a href="{{team.twitter_link}}" target="_blank" class="twitter-bg"><i class="fa fa-twitter"></i></a>
-                                <a href="{{team.google_plus_link}}" target="_blank" class="google-bg"><i class="fa fa-google"></i></a>
-                            </div>
+                            
                         </div>
                         <div class="details">
                             <h4><a href="team-detail.html">{{team.first_name}} {{team.last_name}}</a></h4>
@@ -302,77 +294,4 @@
 <!-- Our team end -->
 
 
-<!-- Car Overview Modal -->
-<div class="car-model-2">
-    <div class="modal fade" id="carOverviewModal" tabindex="-1" role="dialog" aria-labelledby="carOverviewModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="modal-title" id="carOverviewModalLabel">
-                        <h4>Explore Your Dream Car</h4>
-                        <h5><i class="flaticon-pin"></i> 123 Kathal St. Tampa City,</h5>
-                    </div>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row modal-raw">
-                        <div class="col-lg-6 modal-left">
-                            <div class="item active">
-                                <img src="img/car-13.jpg" alt="best-car" class="img-fluid modalLabel-1">
-                                <img src="img/car-14.jpg" alt="best-car" class="img-fluid modalLabel-2">
-                                <div class="sobuz">
-                                    <div class="price-box" style="padding-bottom: 5px;">
-                                        <span class="del-2">$1050.00</span>
-                                    </div>
-                                    <div class="">
-                                        <a href="car-details.html" class="btn btn-md btn-round btn-theme">Convertible</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 modal-right">
-                            <div class="modal-right-content">
-                                <section>
-                                    <h3>Features</h3>
-                                    <div class="features">
-                                        <ul class="bullets">
-                                            <li>Cruise Control</li>
-                                            <li>Airbags</li>
-                                            <li>Air Conditioning</li>
-                                            <li>Alarm System</li>
-                                            <li>Audio Interface</li>
-                                            <li>CDR Audio</li>
-                                            <li>Seat Heating</li>
-                                            <li>ParkAssist</li>
-                                        </ul>
-                                    </div>
-                                </section>
-                                <section>
-                                    <h3>Overview</h3>
-                                    <ul class="bullets">
-                                        <li>Model</li>
-                                        <li>Year</li>
-                                        <li>Condition</li>
-                                        <li>Price</li>
-                                        <li>Audi</li>
-                                        <li>2020</li>
-                                        <li>Brand New</li>
-                                        <li>$178,000</li>
-                                    </ul>
-                                </section>
-                                <div class="description">
-                                    <h3>Description</h3>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard.</p>
-                                    <a href="car-details.html" class="btn btn-md btn-round btn-theme">Show Detail</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 {% endblock content %}
